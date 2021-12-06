@@ -10,27 +10,31 @@ const fishAges = input
     return ages;
   }, new Array(9).fill(0));
 
-console.log(fishAges);
-
 let days = 256;
 while (days-- > 0) {
-  let previous = 0;
-  for (let i = 8; i >= 0; i--) {
-    const fishesOfAge = fishAges[i];
+  // shift ages
 
-    if (i === 8) {
-      previous = fishesOfAge;
-    }
-    if (i !== 8) {
-      fishAges[i] = previous;
-      previous = fishesOfAge;
-    }
-    if (i === 0) {
-      fishAges[6] += fishesOfAge;
-      fishAges[8] = fishesOfAge;
-    }
-  }
+  [
+    fishAges[0],
+    fishAges[1],
+    fishAges[2],
+    fishAges[3],
+    fishAges[4],
+    fishAges[5],
+    fishAges[6],
+    fishAges[7],
+    fishAges[8],
+  ] = [
+    fishAges[1],
+    fishAges[2],
+    fishAges[3],
+    fishAges[4],
+    fishAges[5],
+    fishAges[6],
+    fishAges[7] + fishAges[0],
+    fishAges[8],
+    fishAges[0],
+  ];
 }
 
-console.log(fishAges);
 console.log(fishAges.reduce((sum, fishesOfAge) => sum + fishesOfAge));
