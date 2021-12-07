@@ -5,7 +5,8 @@ const crabPositions = readFileSync("input.txt")
   .split(",")
   .map((n) => parseInt(n));
 
-crabPositions.sort((a, b) => a - b);
+const sum = crabPositions.reduce((acc, n) => acc + n);
+const avg = Math.floor(sum / crabPositions.length);
 
 const calculateFuel = (targetPosition) => {
   let fuelSum = 0;
@@ -25,21 +26,4 @@ const calculateFuel = (targetPosition) => {
   return fuelSum;
 };
 
-let currentBestTargetPosition = Number.MAX_SAFE_INTEGER;
-let currentBestFuelSum = Number.MAX_SAFE_INTEGER;
-for (
-  let i = crabPositions[0];
-  i <= crabPositions[crabPositions.length - 1];
-  i++
-) {
-  const fuel = calculateFuel(i);
-
-  if (fuel < currentBestFuelSum) {
-    currentBestTargetPosition = i;
-    currentBestFuelSum = fuel;
-  }
-}
-
-console.log(
-  `best fuel: ${currentBestFuelSum}, targeting crab: ${currentBestTargetPosition}`
-);
+console.log(`best fuel: ${calculateFuel(avg)}, targeting crab: ${avg}`);
